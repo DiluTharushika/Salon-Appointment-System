@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from app.db.database import Base, engine
 from app.db import base
-from app.api.routes import auth, services, bookings
+from app.api.routes import auth,services,bookings
 
 Base.metadata.create_all(bind=engine)
 
