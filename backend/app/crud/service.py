@@ -1,4 +1,4 @@
-from sqlalchemy.orm import Sessuion
+from sqlalchemy.orm import Session
 from app.models.service import Service
 
 def get_services(db:Session):
