@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { createBooking } from "@/lib/api";
 
 type ServiceOption = { id: number; name: string };
 
@@ -18,11 +19,42 @@ export function BookingForm() {
   const [fullName, setFullName] = useState("");
   const [phone, setPhone] = useState("");
   const [notes, setNotes] = useState("");
+
+  const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
 
-  function onSubmit(e: React.FormEvent) {
+  async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
-    setMessage("Booking submitted (demo). Next: connect to backend.");
+    setMessage(null);
+    setLoading(true);
+
+    try {
+      // TEMP: until you implement real login/auth
+      const user_id = 1;
+
+      // FastAPI schema expects time like "HH:MM:SS"
+      const booking_time = time.length === 5 ? `${time}:00` : time;
+
+      await createBooking({
+        user_id,
+        service_id: Number(serviceId),
+        booking_date: date,
+        booking_time,
+      });
+
+      setMessage("Booking created successfully!");
+      // optional: clear fields
+      // setServiceId("");
+      // setDate("");
+      // setTime("");
+      // setFullName("");
+      // setPhone("");
+      // setNotes("");
+    } catch (err: any) {
+      setMessage(`Failed to create booking: ${String(err?.message ?? err)}`);
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -37,7 +69,9 @@ export function BookingForm() {
         <select
           className="w-full rounded-2xl border border-black/10 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-[#9C4A5E]/30"
           value={serviceId}
-          onChange={(e) => setServiceId(e.target.value ? Number(e.target.value) : "")}
+          onChange={(e) =>
+            setServiceId(e.target.value ? Number(e.target.value) : "")
+          }
           required
         >
           <option value="">Select a service</option>
@@ -83,7 +117,6 @@ export function BookingForm() {
         </label>
         <input
           className="w-full rounded-2xl border border-black/10 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-[#9C4A5E]/30"
-          placeholder="Your name"
           value={fullName}
           onChange={(e) => setFullName(e.target.value)}
           required
@@ -96,7 +129,6 @@ export function BookingForm() {
         </label>
         <input
           className="w-full rounded-2xl border border-black/10 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-[#9C4A5E]/30"
-          placeholder="07X-XXXXXXX"
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
           required
@@ -109,14 +141,16 @@ export function BookingForm() {
         </label>
         <textarea
           className="min-h-[90px] w-full rounded-2xl border border-black/10 px-4 py-3 text-sm outline-none focus:ring-2 focus:ring-[#9C4A5E]/30"
-          placeholder="Any preferences?"
           value={notes}
           onChange={(e) => setNotes(e.target.value)}
         />
       </div>
 
-      <button className="w-full rounded-full bg-[#9C4A5E] px-6 py-3 text-sm font-medium text-white hover:bg-[#8a3f52]">
-        Submit booking
+      <button
+        disabled={loading}
+        className="w-full rounded-full bg-[#9C4A5E] px-6 py-3 text-sm font-medium text-white hover:bg-[#8a3f52] disabled:opacity-60"
+      >
+        {loading ? "Submitting..." : "Submit booking"}
       </button>
 
       {message && <p className="text-sm text-[#7C6660]">{message}</p>}

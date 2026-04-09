@@ -1,10 +1,20 @@
+// frontend/lib/api.ts
 import { API_BASE_URL } from "./config";
 import type { Service, BookingCreate } from "./types";
 
+async function handleResponse<T>(res: Response): Promise<T> {
+  if (!res.ok) {
+    const text = await res.text().catch(() => "");
+    throw new Error(`HTTP ${res.status} ${res.statusText} - ${text}`);
+  }
+  return res.json() as Promise<T>;
+}
+
 export async function getServices(): Promise<Service[]> {
-  const res = await fetch(`${API_BASE_URL}/services/`, { cache: "no-store" });
-  if (!res.ok) throw new Error("Failed to fetch services");
-  return res.json();
+  const res = await fetch(`${API_BASE_URL}/services/`, {
+    cache: "no-store",
+  });
+  return handleResponse<Service[]>(res);
 }
 
 export async function createBooking(payload: BookingCreate) {
@@ -14,6 +24,5 @@ export async function createBooking(payload: BookingCreate) {
     body: JSON.stringify(payload),
   });
 
-  if (!res.ok) throw new Error("Failed to create booking");
-  return res.json();
+  return handleResponse(res);
 }
