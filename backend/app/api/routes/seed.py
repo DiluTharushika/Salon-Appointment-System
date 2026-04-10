@@ -13,11 +13,31 @@ def seed_services(db: Session = Depends(get_db)):
         return {"message": "Services already exist"}
 
     services = [
-        Service(name="Hair Artistry", description="Cut, wash, styling.", price=40, duration=45),
-        Service(name="Skin Rituals", description="Glow facial treatment.", price=60, duration=60),
-        Service(name="Nail Studio", description="Manicure & cleanup.", price=25, duration=30),
-        Service(name="Soul & Wellness", description="Relaxing spa ritual.", price=70, duration=75),
+        Service(
+            name="Hair Artistry",
+            description="Transform your look with expert cutting, styling and coloring. Our master stylists craft looks that complement your unique features and lifestyle.",
+            price=85,
+            duration=60
+        ),
+        Service(
+            name="Skin Rituals",
+            description="Rejuvenate your skin with luxurious facial treatments using premium botanicals. Restore radiance and reveal your most luminous complexion.",
+            price=120,
+            duration=75
+        ),
+        Service(
+            name="Nail Studio",
+            description="Indulge in artistic nail care from classic manicures to elaborate nail art. Each treatment is a ritual of precision and creativity.",
+            price=55,
+            duration=45
+        ),
+        Service(
+            name="Soul & Wellness",
+            description="Restore your inner balance with holistic wellness treatments. Our therapeutic massages and aromatherapy rituals melt away stress and tension.",
+            price=150,
+            duration=90
+        ),
     ]
     db.add_all(services)
     db.commit()
-    return {"message": "Seeded services"}
+    return {"message": "Seeded services successfully!"}

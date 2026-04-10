@@ -1,5 +1,5 @@
 // frontend/lib/api.ts
-import { API_BASE_URL } from "./config";
+import { BROWSER_API_BASE_URL, SERVER_API_BASE_URL } from "./config";
 import type { Service, BookingCreate } from "./types";
 
 async function handleResponse<T>(res: Response): Promise<T> {
@@ -10,23 +10,20 @@ async function handleResponse<T>(res: Response): Promise<T> {
   return res.json() as Promise<T>;
 }
 
+// Server-side fetch (Next server in Docker)
 export async function getServices(): Promise<Service[]> {
-  const res = await fetch(`${API_BASE_URL}/services/`, {
+  const res = await fetch(`${SERVER_API_BASE_URL}/services/`, {
     cache: "no-store",
   });
   return handleResponse<Service[]>(res);
 }
 
+// Browser/client-side fetch (user browser)
 export async function createBooking(payload: BookingCreate) {
-  // Always use localhost:8000 for browser requests
-  const browserUrl = 
-    process.env.NEXT_PUBLIC_BROWSER_API_BASE_URL || "http://localhost:8000";
-    
-  const res = await fetch(`${browserUrl}/bookings/`, {
+  const res = await fetch(`${BROWSER_API_BASE_URL}/bookings/`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload),
   });
-
   return handleResponse(res);
 }
