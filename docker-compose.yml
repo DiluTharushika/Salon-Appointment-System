@@ -11,10 +11,17 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U salonuser -d salondb"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
 
   backend:
     build: ./backend
     container_name: salon_backend
+    restart: on-failure
     ports:
       - "8000:8000"
     volumes:
@@ -22,7 +29,8 @@ services:
     env_file:
       - ./backend/.env
     depends_on:
-      - db
+      db:
+        condition: service_healthy  # ← Wait until DB is healthy
 
   frontend:
     build: ./frontend
@@ -34,6 +42,9 @@ services:
       - /app/node_modules
     env_file:
       - ./frontend/.env.local
+    environment:
+      - NEXT_PUBLIC_SERVER_API_BASE_URL=http://backend:8000
+      - NEXT_PUBLIC_BROWSER_API_BASE_URL=http://localhost:8000
     depends_on:
       - backend
 

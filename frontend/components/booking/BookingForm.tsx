@@ -19,38 +19,39 @@ export function BookingForm() {
   const [fullName, setFullName] = useState("");
   const [phone, setPhone] = useState("");
   const [notes, setNotes] = useState("");
-
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState<string | null>(null);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
     setMessage(null);
     setLoading(true);
+    setIsSuccess(false);
 
     try {
-      // TEMP: until you implement real login/auth
-      const user_id = 1;
-
-      // FastAPI schema expects time like "HH:MM:SS"
       const booking_time = time.length === 5 ? `${time}:00` : time;
 
       await createBooking({
-        user_id,
         service_id: Number(serviceId),
+        customer_name: fullName,
+        phone_number: phone,
         booking_date: date,
         booking_time,
+        notes: notes || undefined,
       });
 
-      setMessage("Booking created successfully!");
-      // optional: clear fields
-      // setServiceId("");
-      // setDate("");
-      // setTime("");
-      // setFullName("");
-      // setPhone("");
-      // setNotes("");
+      setIsSuccess(true);
+      setMessage("✅ Booking created successfully!");
+      // Clear form
+      setServiceId("");
+      setDate("");
+      setTime("");
+      setFullName("");
+      setPhone("");
+      setNotes("");
     } catch (err: any) {
+      setIsSuccess(false);
       setMessage(`Failed to create booking: ${String(err?.message ?? err)}`);
     } finally {
       setLoading(false);
@@ -153,7 +154,11 @@ export function BookingForm() {
         {loading ? "Submitting..." : "Submit booking"}
       </button>
 
-      {message && <p className="text-sm text-[#7C6660]">{message}</p>}
+      {message && (
+        <p className={`text-sm ${isSuccess ? "text-green-600" : "text-red-500"}`}>
+          {message}
+        </p>
+      )}
     </form>
   );
 }
