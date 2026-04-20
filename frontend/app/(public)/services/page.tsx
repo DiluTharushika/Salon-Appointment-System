@@ -5,43 +5,30 @@ export default async function ServicesPage() {
   const services = await getServices();
 
   return (
-    <div className="min-h-screen bg-[#F9F6F2]">
-
+    <div className="min-h-screen bg-gradient-to-b from-[#F9F6F2] to-[#F7F1EE]">
       {/* ── Hero ── */}
-      <div className="relative overflow-hidden bg-[#201A17] py-24 px-6">
-        
+      <div className="relative overflow-hidden bg-[#201A17] px-4 sm:px-6 py-16 sm:py-20 lg:py-24">
         {/* Blurred blobs */}
-        <div className="absolute top-0 left-0 w-96 h-96 bg-[#9C4A5E]/20 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
-        <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#7C6660]/20 rounded-full blur-3xl translate-x-1/2 translate-y-1/2" />
+        <div className="pointer-events-none absolute top-0 left-0 h-96 w-96 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#9C4A5E]/25 blur-3xl" />
+        <div className="pointer-events-none absolute bottom-0 right-0 h-96 w-96 translate-x-1/2 translate-y-1/2 rounded-full bg-[#7C6660]/20 blur-3xl" />
 
-        <div className="relative max-w-4xl mx-auto text-center">
-          
-          {/* Label */}
+        <div className="relative mx-auto max-w-4xl text-center">
           <div className="inline-flex items-center gap-4 mb-6">
-            <div className="h-px w-16 bg-[#9C4A5E]/60" />
-            <span className="text-xs uppercase tracking-[0.4em] text-[#9C4A5E] font-medium">
+            <div className="h-px w-10 sm:w-16 bg-[#9C4A5E]/70" />
+            <span className="text-[10px] sm:text-xs uppercase tracking-[0.45em] text-[#9C4A5E] font-medium">
               Curated Services
             </span>
-            <div className="h-px w-16 bg-[#9C4A5E]/60" />
+            <div className="h-px w-10 sm:w-16 bg-[#9C4A5E]/70" />
           </div>
 
-          {/* Title */}
-          <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl text-white mb-4 leading-tight">
+          <h1 className="font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-white leading-tight">
             Discover Our
           </h1>
-          <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl text-[#9C4A5E] italic mb-6 leading-tight">
+          <h2 className="mt-2 font-serif text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-[#9C4A5E] italic leading-tight">
             Service Menu
-          </h1>
+          </h2>
 
-          {/* Divider */}
-          <div className="flex items-center justify-center gap-3 mb-6">
-            <div className="h-px w-12 bg-white/20" />
-            <div className="w-1.5 h-1.5 rounded-full bg-[#9C4A5E]" />
-            <div className="h-px w-12 bg-white/20" />
-          </div>
-
-          {/* Subtitle */}
-          <p className="text-white/50 text-sm md:text-base max-w-lg mx-auto leading-relaxed">
+          <p className="mt-6 text-white/70 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
             Explore our curated treatments and rituals, crafted to restore your
             natural beauty and inner harmony.
           </p>
@@ -49,37 +36,35 @@ export default async function ServicesPage() {
       </div>
 
       {/* ── Services Section ── */}
-      <div className="max-w-6xl mx-auto px-6 py-16">
-
-        {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-12">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 sm:mb-12">
           <div>
-            <p className="text-xs uppercase tracking-[0.3em] text-[#9C4A5E] mb-2 font-medium">
+            <p className="text-[10px] sm:text-xs uppercase tracking-[0.35em] text-[#9C4A5E] mb-2 font-medium">
               All Treatments
             </p>
             <h2 className="font-serif text-3xl md:text-4xl text-[#201A17]">
               {services.length} Services Available
             </h2>
           </div>
+
           <div className="flex items-center gap-3">
-            <div className="h-px w-16 bg-[#7C6660]/30" />
-            <span className="text-xs uppercase tracking-[0.2em] text-[#7C6660]">
+            <div className="h-px w-12 sm:w-16 bg-[#7C6660]/30" />
+            <span className="text-[10px] sm:text-xs uppercase tracking-[0.25em] text-[#7C6660]">
               The Atelier Collection
             </span>
           </div>
         </div>
 
-        {/* Cards Grid */}
         {services.length === 0 ? (
-          <div className="text-center py-24 space-y-4">
-            <div className="text-7xl">✨</div>
+          <div className="rounded-3xl border border-black/10 bg-white/70 p-10 sm:p-14 text-center space-y-4 shadow-sm backdrop-blur">
+            <div className="text-6xl sm:text-7xl">✨</div>
             <h3 className="font-serif text-2xl text-[#201A17]">Coming Soon</h3>
             <p className="text-[#7C6660] text-sm">
               Our service menu is being curated. Check back soon.
             </p>
           </div>
         ) : (
-          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-2">
+          <div className="grid gap-6 sm:gap-8 sm:grid-cols-2">
             {services.map((s) => (
               <ServiceCard
                 key={s.id}
@@ -93,31 +78,42 @@ export default async function ServicesPage() {
         )}
 
         {/* ── Bottom CTA ── */}
-        <div className="mt-20">
-          <div className="relative overflow-hidden rounded-3xl bg-[#201A17] px-8 py-14 text-center">
-            
-            {/* Background blobs */}
-            <div className="absolute top-0 left-0 w-64 h-64 bg-[#9C4A5E]/10 rounded-full blur-3xl -translate-x-1/2 -translate-y-1/2" />
-            <div className="absolute bottom-0 right-0 w-64 h-64 bg-[#7C6660]/10 rounded-full blur-3xl translate-x-1/2 translate-y-1/2" />
+        <div className="mt-16 sm:mt-20">
+          <div className="relative overflow-hidden rounded-3xl bg-[#201A17] px-6 sm:px-10 py-12 sm:py-14 text-center shadow-[0_25px_80px_-50px_rgba(32,26,23,0.95)]">
+            <div className="pointer-events-none absolute top-0 left-0 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#9C4A5E]/15 blur-3xl" />
+            <div className="pointer-events-none absolute bottom-0 right-0 h-72 w-72 translate-x-1/2 translate-y-1/2 rounded-full bg-[#7C6660]/10 blur-3xl" />
 
             <div className="relative space-y-4">
-              <p className="text-xs uppercase tracking-[0.4em] text-[#9C4A5E] font-medium">
+              <p className="text-[10px] sm:text-xs uppercase tracking-[0.45em] text-[#9C4A5E] font-medium">
                 Ready to Begin?
               </p>
               <h3 className="font-serif text-3xl md:text-4xl text-white">
                 Book Your Experience
               </h3>
-              <p className="text-white/50 text-sm max-w-sm mx-auto leading-relaxed">
+              <p className="text-white/70 text-sm max-w-sm mx-auto leading-relaxed">
                 Reserve your appointment and let us take care of the rest.
               </p>
-              <div className="pt-4">
+
+              <div className="pt-5">
                 <a
                   href="/booking"
-                  className="inline-flex items-center gap-3 rounded-full bg-[#9C4A5E] px-10 py-4 text-sm font-semibold text-white uppercase tracking-widest hover:bg-[#8a3f52] hover:shadow-xl hover:shadow-[#9C4A5E]/30 transition-all duration-300"
+                  className="inline-flex items-center justify-center gap-3 rounded-full bg-[#9C4A5E] px-10 py-4 text-xs sm:text-sm font-semibold text-white uppercase tracking-widest
+                             hover:bg-[#8a3f52] transition-all duration-300
+                             shadow-lg shadow-[#9C4A5E]/25 hover:shadow-xl hover:shadow-[#9C4A5E]/30"
                 >
                   <span>Book Now</span>
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  <svg
+                    className="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 5l7 7-7 7"
+                    />
                   </svg>
                 </a>
               </div>
