@@ -9,48 +9,86 @@ type Props = {
 
 export function ServiceCard({ name, description, price, duration }: Props) {
   return (
-    <div
-      className="group relative overflow-hidden rounded-3xl border border-black/10 bg-white/70 p-6 sm:p-7
-                 shadow-sm backdrop-blur transition-all duration-300
-                 hover:-translate-y-1 hover:shadow-xl hover:shadow-black/10"
-    >
-      {/* subtle gradient glow */}
-      <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-        <div className="absolute -top-24 -left-24 h-56 w-56 rounded-full bg-[#9C4A5E]/12 blur-3xl" />
-        <div className="absolute -bottom-24 -right-24 h-56 w-56 rounded-full bg-[#7C6660]/12 blur-3xl" />
-      </div>
+    <div className="service-card group p-7 sm:p-8">
+      {/* Top gold shimmer on hover (via CSS .service-card::before) */}
 
       <div className="relative">
+        {/* Header row */}
         <div className="flex items-start justify-between gap-4">
-          <h3 className="font-serif text-2xl text-[#201A17] leading-tight">
+          <h3
+            className="font-serif text-2xl leading-tight"
+            style={{ color: "var(--ink)" }}
+          >
             {name}
           </h3>
 
-          <div className="text-right">
-            <p className="text-xs uppercase tracking-[0.25em] text-[#7C6660]">
+          {/* Price badge */}
+          <div
+            className="flex-shrink-0 rounded-2xl px-4 py-2 text-right transition-colors duration-300"
+            style={{
+              background: "rgba(156,74,94,0.07)",
+              border: "1px solid rgba(156,74,94,0.15)",
+            }}
+          >
+            <p
+              className="text-[8px] uppercase tracking-[0.28em] font-semibold"
+              style={{ color: "var(--muted)" }}
+            >
               from
             </p>
-            <p className="text-lg font-semibold text-[#9C4A5E]">${price}</p>
+            <p
+              className="text-lg font-semibold mt-0.5 leading-none"
+              style={{ color: "var(--rose)" }}
+            >
+              ${price}
+            </p>
           </div>
         </div>
 
-        <p className="mt-3 text-sm leading-relaxed text-[#7C6660]">
+        {/* Description */}
+        <p
+          className="mt-4 text-sm leading-relaxed"
+          style={{ color: "var(--muted)" }}
+        >
           {description}
         </p>
 
-        <div className="mt-6 flex items-center justify-between">
-          <div className="inline-flex items-center gap-2 rounded-full bg-black/5 px-3 py-1.5 text-xs text-[#7C6660]">
-            <span className="h-1.5 w-1.5 rounded-full bg-[#9C4A5E]" />
-            <span className="uppercase tracking-[0.2em]">{duration} min</span>
+        {/* Divider */}
+        <div className="divider-gold mt-6 mb-5" />
+
+        {/* Footer row */}
+        <div className="flex items-center justify-between">
+          {/* Duration pill */}
+          <div
+            className="inline-flex items-center gap-2 rounded-full px-3.5 py-1.5 text-[10px] font-semibold uppercase tracking-[0.25em]"
+            style={{
+              background: "rgba(201,169,110,0.08)",
+              border: "1px solid rgba(201,169,110,0.20)",
+              color: "var(--gold-dim)",
+            }}
+          >
+            <span
+              className="w-1.5 h-1.5 rounded-full"
+              style={{ background: "var(--gold)" }}
+            />
+            {duration} min
           </div>
 
+          {/* Book CTA */}
           <Link
             href="/booking"
-            className="inline-flex items-center gap-2 rounded-full bg-[#201A17] px-4 py-2 text-xs font-semibold uppercase tracking-widest text-[#F7F1EE]
-                       transition-colors duration-300 hover:bg-[#9C4A5E]"
+            className="inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-[10px] font-semibold uppercase tracking-widest transition-all duration-300"
+            style={{
+              background: "var(--ink)",
+              color: "var(--cream)",
+            }}
+            // hover handled inline via onMouseEnter/Leave or global CSS
           >
             Book
-            <span className="transition-transform duration-300 group-hover:translate-x-0.5">
+            <span
+              className="transition-transform duration-300 group-hover:translate-x-1"
+              style={{ display: "inline-block" }}
+            >
               →
             </span>
           </Link>
