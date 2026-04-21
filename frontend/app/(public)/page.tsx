@@ -5,9 +5,7 @@ export default function HomePage() {
   return (
     <div style={{ background: "var(--cream)", color: "var(--ink)" }}>
 
-      {/* ═══════════════════════════════════════════
-          HERO BANNER - hero.jpg as full background
-      ═══════════════════════════════════════════ */}
+      
       <section className="relative overflow-hidden h-screen flex items-center">
 
         {/* ── Background hero.jpg image ── */}
