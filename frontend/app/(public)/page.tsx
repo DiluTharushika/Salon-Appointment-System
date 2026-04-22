@@ -294,60 +294,7 @@ export default function HomePage() {
             </div>
           </div>
 
-          {/* Card 3 — Schedule */}
-          <div className="service-card p-7 group animate-fade-up delay-300">
-            <p
-              className="text-[9px] uppercase tracking-[0.45em] font-semibold mb-3"
-              style={{ color: "var(--muted)" }}
-            >
-              Schedule
-            </p>
-            <h3 className="font-serif text-xl" style={{ color: "var(--ink)" }}>
-              Select a Date
-            </h3>
-
-            <div className="mt-5 grid grid-cols-4 gap-2 text-center text-xs">
-              {["14", "15", "16", "17"].map((d) => (
-                <div
-                  key={d}
-                  className="rounded-xl py-3 font-medium transition-all duration-200 cursor-pointer hover:scale-105"
-                  style={{
-                    background:
-                      d === "15"
-                        ? "linear-gradient(135deg, var(--rose), var(--rose-deep))"
-                        : "rgba(28,20,16,0.05)",
-                    color: d === "15" ? "#fff" : "var(--ink)",
-                    boxShadow:
-                      d === "15"
-                        ? "0 4px 16px rgba(156,74,94,0.35)"
-                        : "none",
-                  }}
-                >
-                  {d}
-                </div>
-              ))}
-            </div>
-
-            <div className="mt-3 grid grid-cols-2 gap-2 text-xs">
-              {["09:00", "11:30", "04:30", "07:00"].map((t) => (
-                <div
-                  key={t}
-                  className="rounded-xl py-3 text-center font-medium transition-all duration-200 cursor-pointer hover:scale-105"
-                  style={{
-                    background:
-                      t === "11:30" ? "var(--ink)" : "rgba(28,20,16,0.05)",
-                    color: t === "11:30" ? "var(--cream)" : "var(--ink)",
-                  }}
-                >
-                  {t}
-                </div>
-              ))}
-            </div>
-
-            <Link href="/booking" className="btn-primary mt-5 w-full justify-center">
-              Confirm Appointment
-            </Link>
-          </div>
+          
         </div>
       </section>
 
