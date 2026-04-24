@@ -41,19 +41,49 @@ export function Header() {
           alignItems: "center"
         }}
       >
-        {/* ── LEFT: Brand ── */}
         <div style={{ flex: "0 0 auto" }}>
-          <Link href="/" style={{ textDecoration: "none" }}>
-            <div style={{ display: "flex", flexDirection: "column", lineHeight: "1.1" }}>
-              <span className="font-serif" style={{ fontSize: "22px", letterSpacing: "0.05em", color: "var(--ink)" }}>
-                The <span style={{ fontStyle: "italic", color: "var(--rose)" }}>Atelier</span>
-              </span>
-              <span style={{ fontSize: "7px", fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.5em", color: "var(--gold)", marginTop: "4px" }}>
-                Aura Glass Studio
-              </span>
-            </div>
-          </Link>
-        </div>
+  <Link href="/" style={{ textDecoration: "none" }}>
+    <div style={{ display: "flex", flexDirection: "column", lineHeight: "1.05" }}>
+      
+      {/* Main Brand */}
+      <span
+        className="font-serif"
+        style={{
+          fontSize: "24px",              // slightly bigger
+          fontWeight: "600",             // 👈 stronger presence
+          letterSpacing: "0.06em",
+          color: "var(--ink)"
+        }}
+      >
+        The{" "}
+        <span
+          style={{
+            fontStyle: "italic",
+            fontWeight: "700",           // 👈 highlight “Atelier”
+            color: "var(--rose)"
+          }}
+        >
+          Atelier
+        </span>
+      </span>
+
+      {/* Subtext */}
+      <span
+        style={{
+          fontSize: "8px",
+          fontWeight: "600",             // 👈 increased from default
+          textTransform: "uppercase",
+          letterSpacing: "0.45em",
+          color: "var(--gold)",
+          marginTop: "5px"
+        }}
+      >
+        Aura Glass Studio
+      </span>
+
+    </div>
+  </Link>
+</div>
 
         {/* ── CENTER: Navigation (Home + Others) ── */}
         <nav style={{ 
@@ -68,7 +98,7 @@ export function Header() {
                 key={link.href}
                 href={link.href}
                 style={{
-                  fontSize: "10px",
+                  fontSize: "13px",
                   fontWeight: "700",
                   textTransform: "uppercase",
                   letterSpacing: "0.3em",
@@ -100,22 +130,25 @@ export function Header() {
 
         {/* ── RIGHT: Button (Away from corner) ── */}
         <div style={{ flex: "0 0 auto" }}>
-          <Link 
-            href="/booking" 
-            className="btn-primary" 
-            style={{ 
-              padding: "10px 22px", 
-              fontSize: "9px", 
-              letterSpacing: "0.2em",
-              borderRadius: "999px",
-              display: "inline-flex",
-              // Slightly smaller scale to fit the 72px header
-              transform: "scale(0.95)"
-            }}
-          >
-            BOOK NOW
-          </Link>
-        </div>
+  <Link
+    href="/booking"
+    className="btn-primary"
+    style={{
+      padding: "8px 18px",        // tighter like nav buttons
+      fontSize: "12px",           // nav-friendly size
+      letterSpacing: "0.15em",    // slightly reduced for readability
+      borderRadius: "999px",
+      display: "inline-flex",
+      alignItems: "center",
+      justifyContent: "center",
+      height: "34px",             // consistent nav height
+      lineHeight: "1",
+       textDecoration: "none" 
+    }}
+  >
+    BOOK NOW
+  </Link>
+</div>
 
       </div>
     </header>
