@@ -34,22 +34,18 @@ export const metadata: Metadata = {
   ],
   openGraph: {
     title: "The Atelier — Aura Glass Studio",
-    description:
-      "A sanctuary of bespoke beauty. Where light meets pure serenity.",
+    description: "A sanctuary of bespoke beauty. Where light meets pure serenity.",
     type: "website",
   },
 };
 
 export default function RootLayout({
   children,
-}: {
+}: Readonly<{
   children: React.ReactNode;
-}) {
+}>) {
   return (
-    <html
-      lang="en"
-      className={`${inter.variable} ${playfair.variable}`}
-    >
+    <html lang="en" className={`${inter.variable} ${playfair.variable}`}>
       <body
         className="min-h-screen antialiased"
         style={{

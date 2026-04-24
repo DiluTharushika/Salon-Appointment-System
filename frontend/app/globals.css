@@ -23,9 +23,17 @@
 
   --shadow-soft: 0 24px 70px -46px rgba(32,26,23,0.35);
   --shadow-rose: 0 26px 70px -50px rgba(156,74,94,0.35);
+
+  /* -------------------------------------------------------
+     GLASS TOKENS (for BookingForm and glass UI)
+  ------------------------------------------------------- */
+  --glass-bg: rgba(255,255,255,0.62);
+  --glass-border: rgba(32,26,23,0.12);
+  --shadow-card: 0 24px 70px -46px rgba(32,26,23,0.35);
 }
 
 html, body { height: 100%; }
+
 body{
   margin: 0;
   background: var(--cream);
@@ -160,6 +168,60 @@ h1,h2,h3,.font-serif{
   border: 1px solid rgba(32,26,23,0.10);
   background: rgba(255,255,255,0.60);
   backdrop-filter: blur(16px);
+}
+
+/* -------------------------------------------------------
+   FORMS (BookingForm)
+------------------------------------------------------- */
+.field-label{
+  display: block;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.field{
+  width: 100%;
+  border-radius: 16px;
+  padding: 14px 14px;
+  font-size: 14px;
+  line-height: 1.35;
+  color: var(--ink);
+  background: rgba(255,255,255,0.75);
+  border: 1px solid rgba(32,26,23,0.12);
+  box-shadow: 0 10px 30px -26px rgba(32,26,23,0.28);
+  outline: none;
+  transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease, background .2s ease;
+}
+
+.field::placeholder{
+  color: rgba(124,102,96,0.75);
+}
+
+.field:focus{
+  border-color: rgba(201,169,110,0.55);
+  box-shadow:
+    0 0 0 4px rgba(201,169,110,0.16),
+    0 18px 55px -40px rgba(32,26,23,0.45);
+  background: rgba(255,255,255,0.92);
+}
+
+.field:disabled{
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+select.field{
+  padding-right: 44px;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+textarea.field{
+  padding-top: 14px;
+  padding-bottom: 14px;
 }
 
 /* -------------------------------------------------------
