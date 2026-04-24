@@ -11,6 +11,7 @@ export default function BookingPage() {
       }}
     >
       {/* ── Hero strip ── */}
+     
       <div
         className="relative overflow-hidden px-4 sm:px-6 py-16 sm:py-20 text-center"
         style={{
