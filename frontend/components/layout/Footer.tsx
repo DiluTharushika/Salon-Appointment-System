@@ -1,135 +1,190 @@
 import Link from "next/link";
 
+const NAV = [
+  { label: "Services",  href: "/services" },
+  { label: "About",     href: "/about"    },
+  { label: "Gallery",   href: "/preview"  },
+  { label: "Booking",   href: "/booking"  },
+];
+
+const SERVICES = [
+  "Hair Artistry",
+  "Skin Rituals",
+  "Glass Manicure",
+  "Botanical Spa",
+  "Brow & Lash",
+];
+
+const SOCIAL = [
+  { name: "Instagram", icon: "◈", href: "https://instagram.com" },
+  { name: "Pinterest", icon: "◆", href: "https://pinterest.com" },
+  { name: "TikTok",    icon: "◉", href: "https://tiktok.com"    },
+];
+
 export function Footer() {
   const year = new Date().getFullYear();
 
-  // Reset objects to force styles even if global CSS tries to break them
-  const listReset: React.CSSProperties = { listStyle: "none", padding: 0, margin: 0 };
-  const linkReset: React.CSSProperties = { textDecoration: "none", color: "inherit", transition: "color 0.3s" };
-
   return (
-    <footer 
-      style={{ 
-        width: "100%", 
-        backgroundColor: "var(--cream)", 
-        borderTop: "1px solid rgba(201,169,110,0.2)",
-        marginTop: "80px"
+    <footer
+      style={{
+        width: "100%",
+        background: "var(--ink)",
+        borderTop: "1px solid rgba(201,169,110,0.15)",
       }}
     >
-      {/* Container with forced padding and center alignment */}
-      <div 
-        style={{ 
-          maxWidth: "1280px", 
-          margin: "0 auto", 
-          padding: "80px 40px" // THIS FORCES THE MARGINS/PADDING YOU NEED
-        }}
-      >
-        
-        {/* ── TOP SECTION: 4 COLUMNS ── */}
-        <div style={{ 
-          display: "flex", 
-          flexWrap: "wrap", 
-          justifyContent: "space-between", 
-          gap: "40px",
-          alignItems: "flex-start" 
-        }}>
-          
-          {/* 1. BRANDING (Left) */}
-          <div style={{ flex: "1 1 300px", minWidth: "250px" }}>
-            <Link href="/" style={linkReset}>
-              <div style={{ display: "flex", flexDirection: "column", lineHeight: 1.1 }}>
-                <span className="font-serif" style={{ fontSize: "28px", letterSpacing: "0.05em", color: "var(--ink)" }}>
-                  The <span style={{ fontStyle: "italic", color: "var(--rose)" }}>Atelier</span>
+      {/* Marquee strip */}
+      <div style={{ borderBottom: "1px solid rgba(201,169,110,0.12)", overflow: "hidden", padding: "14px 0" }}>
+        <div
+          style={{
+            display: "flex",
+            gap: "48px",
+            whiteSpace: "nowrap",
+            width: "max-content",
+            animation: "marquee 30s linear infinite",
+          }}
+        >
+          {[...Array(2)].map((_, gi) =>
+            ["✦ Hair Artistry", "◈ Skin Rituals", "◉ Glass Manicure", "◆ Botanical Spa", "✦ Brow Design", "◈ Lash Studio"].map(
+              (item, i) => (
+                <span
+                  key={`${gi}-${i}`}
+                  style={{
+                    fontSize: "9px",
+                    fontWeight: 700,
+                    textTransform: "uppercase",
+                    letterSpacing: "0.45em",
+                    color: "rgba(201,169,110,0.55)",
+                    padding: "0 16px",
+                  }}
+                >
+                  {item}
                 </span>
-                <span style={{ fontSize: "9px", fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.5em", color: "var(--gold)", marginTop: "10px" }}>
-                  Aura Glass Studio
-                </span>
+              )
+            )
+          )}
+        </div>
+      </div>
+
+      {/* Main content */}
+      <div style={{ maxWidth: "1280px", margin: "0 auto", padding: "72px 40px" }}>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fit, minmax(190px, 1fr))",
+            gap: "48px",
+            alignItems: "start",
+          }}
+        >
+          {/* Brand */}
+          <div>
+            <Link href="/" style={{ textDecoration: "none" }}>
+              <span style={{ fontFamily: "Georgia, serif", fontSize: "24px", fontWeight: 700, color: "#fff" }}>
+                The <span style={{ fontStyle: "italic", color: "var(--rose)" }}>Atelier</span>
+              </span>
+              <div style={{ fontSize: "8px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.50em", color: "var(--gold)", marginTop: "8px" }}>
+                Aura Glass Studio
               </div>
             </Link>
-            <p style={{ marginTop: "32px", fontSize: "14px", lineHeight: "1.8", color: "var(--muted)", maxWidth: "300px" }}>
+            <p style={{ marginTop: "24px", fontSize: "13px", lineHeight: "1.85", color: "rgba(255,255,255,0.48)", maxWidth: "240px" }}>
               A sanctuary of bespoke beauty. Where light meets pure serenity and craftsmanship meets soul.
             </p>
+            <div style={{ marginTop: "24px", display: "flex", gap: "12px" }}>
+              {SOCIAL.map((s) => (
+                <a
+                  key={s.name}
+                  href={s.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={s.name}
+                  style={{
+                    width: "34px", height: "34px", borderRadius: "50%",
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                    fontSize: "13px", color: "var(--gold)",
+                    border: "1px solid rgba(201,169,110,0.22)",
+                    background: "rgba(201,169,110,0.06)",
+                    textDecoration: "none",
+                  }}
+                >
+                  {s.icon}
+                </a>
+              ))}
+            </div>
           </div>
 
-          {/* 2. EXPLORE (Links) */}
-          <div style={{ minWidth: "140px" }}>
-            <h4 style={{ fontSize: "10px", fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.4em", color: "var(--gold)", marginBottom: "30px", marginTop: 0 }}>
+          {/* Explore */}
+          <div>
+            <h4 style={{ fontSize: "9px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.45em", color: "var(--gold)", marginBottom: "24px", marginTop: 0 }}>
               Explore
             </h4>
-            <ul style={listReset}>
-              {["Services", "Booking", "Gallery"].map((item) => (
-                <li key={item} style={{ marginBottom: "16px" }}>
-                  <Link 
-                    href={`/${item.toLowerCase()}`} 
-                    style={{ ...linkReset, fontSize: "11px", textTransform: "uppercase", letterSpacing: "0.25em", color: "var(--muted)" }}
-                    className="hover:text-rose"
-                  >
-                    {item}
+            <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "14px" }}>
+              {NAV.map((item) => (
+                <li key={item.label}>
+                  <Link href={item.href} style={{ fontSize: "11px", fontWeight: 600, textTransform: "uppercase", letterSpacing: "0.22em", color: "rgba(255,255,255,0.50)", textDecoration: "none" }}>
+                    {item.label}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* 3. CONNECT (Contact) */}
-          <div style={{ minWidth: "200px" }}>
-            <h4 style={{ fontSize: "10px", fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.4em", color: "var(--gold)", marginBottom: "30px", marginTop: 0 }}>
-              Connect
+          {/* Services */}
+          <div>
+            <h4 style={{ fontSize: "9px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.45em", color: "var(--gold)", marginBottom: "24px", marginTop: 0 }}>
+              Services
             </h4>
-            <div style={{ fontSize: "12px", color: "var(--muted)", lineHeight: "2.2", letterSpacing: "0.05em" }}>
-              <p style={{ margin: 0 }}>hello@theatelier.com</p>
-              <p style={{ margin: 0 }}>+1 (800) 555-0192</p>
-              <div style={{ marginTop: "20px", opacity: 0.8 }}>
-                Studio 12, Glass Square<br />
-                London, UK W1B 2EL
-              </div>
-            </div>
+            <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "12px" }}>
+              {SERVICES.map((s) => (
+                <li key={s}>
+                  <Link href="/services" style={{ fontSize: "11px", color: "rgba(255,255,255,0.48)", textDecoration: "none" }}>
+                    {s}
+                  </Link>
+                </li>
+              ))}
+            </ul>
           </div>
 
-          {/* 4. HOURS (Right) */}
-          <div style={{ minWidth: "260px" }}>
-            <h4 style={{ fontSize: "10px", fontWeight: "bold", textTransform: "uppercase", letterSpacing: "0.4em", color: "var(--gold)", marginBottom: "30px", marginTop: 0 }}>
+          {/* Hours + Contact */}
+          <div>
+            <h4 style={{ fontSize: "9px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.45em", color: "var(--gold)", marginBottom: "24px", marginTop: 0 }}>
               Studio Hours
             </h4>
-            <div style={{ display: "flex", flexDirection: "column", gap: "15px", fontSize: "12px", color: "var(--muted)" }}>
-              <div style={{ display: "flex", justifyContent: "space-between", borderBottom: "1px solid rgba(201,169,110,0.15)", paddingBottom: "10px" }}>
-                <span style={{ textTransform: "uppercase", letterSpacing: "0.1em" }}>Mon — Fri</span>
-                <span style={{ color: "var(--ink)", fontWeight: "bold" }}>9am — 7pm</span>
-              </div>
-              <div style={{ display: "flex", justifyContent: "space-between", borderBottom: "1px solid rgba(201,169,110,0.15)", paddingBottom: "10px" }}>
-                <span style={{ textTransform: "uppercase", letterSpacing: "0.1em" }}>Saturday</span>
-                <span style={{ color: "var(--ink)", fontWeight: "bold" }}>10am — 6pm</span>
-              </div>
-              <div style={{ display: "flex", justifyContent: "space-between", color: "var(--rose)" }}>
-                <span style={{ textTransform: "uppercase", letterSpacing: "0.1em" }}>Sunday</span>
-                <span style={{ fontWeight: "bold" }}>Closed</span>
-              </div>
+            <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+              {[
+                { day: "Mon — Fri", hours: "9am — 7pm"  },
+                { day: "Saturday",  hours: "10am — 6pm" },
+                { day: "Sunday",    hours: "Closed", closed: true },
+              ].map(({ day, hours, closed }) => (
+                <div key={day} style={{ display: "flex", justifyContent: "space-between", fontSize: "11px", borderBottom: "1px solid rgba(255,255,255,0.06)", paddingBottom: "9px", gap: "20px" }}>
+                  <span style={{ color: "rgba(255,255,255,0.42)" }}>{day}</span>
+                  <span style={{ fontWeight: 700, color: closed ? "var(--rose)" : "rgba(255,255,255,0.78)" }}>{hours}</span>
+                </div>
+              ))}
+            </div>
+
+            <h4 style={{ fontSize: "9px", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.45em", color: "var(--gold)", margin: "24px 0 14px" }}>
+              Contact
+            </h4>
+            <div style={{ fontSize: "12px", color: "rgba(255,255,255,0.48)", lineHeight: 2 }}>
+              <p style={{ margin: 0 }}>hello@theatelier.com</p>
+              <p style={{ margin: 0 }}>+1 (800) 555-0192</p>
+              <p style={{ marginTop: "8px", opacity: 0.85 }}>Studio 12, Glass Square<br />London, UK W1B 2EL</p>
             </div>
           </div>
-
         </div>
 
-        {/* ── BOTTOM BAR: COPYRIGHT ── */}
-        <div style={{ 
-          marginTop: "80px", 
-          paddingTop: "40px", 
-          borderTop: "1px solid rgba(201, 169, 110, 0.1)", 
-          display: "flex", 
-          flexWrap: "wrap",
-          justifyContent: "space-between", 
-          alignItems: "center",
-          gap: "24px"
-        }}>
-          <p style={{ fontSize: "10px", textTransform: "uppercase", letterSpacing: "0.3em", color: "var(--muted)", margin: 0 }}>
-            © {year} THE ATELIER STUDIO. ALL RIGHTS RESERVED.
+        {/* Bottom bar */}
+        <div style={{ marginTop: "64px", paddingTop: "32px", borderTop: "1px solid rgba(255,255,255,0.06)", display: "flex", flexWrap: "wrap", justifyContent: "space-between", alignItems: "center", gap: "16px" }}>
+          <p style={{ fontSize: "9px", textTransform: "uppercase", letterSpacing: "0.30em", color: "rgba(255,255,255,0.28)", margin: 0 }}>
+            © {year} The Atelier Studio. All rights reserved.
           </p>
-          
-          <div style={{ display: "flex", gap: "40px" }}>
-            <Link href="#" style={{ ...linkReset, fontSize: "10px", textTransform: "uppercase", letterSpacing: "0.3em", color: "var(--muted)" }} className="hover:text-rose">Privacy</Link>
-            <Link href="#" style={{ ...linkReset, fontSize: "10px", textTransform: "uppercase", letterSpacing: "0.3em", color: "var(--muted)" }} className="hover:text-rose">Terms</Link>
+          <div style={{ display: "flex", gap: "28px" }}>
+            {["Privacy", "Terms", "Cookies"].map((item) => (
+              <Link key={item} href="#" style={{ fontSize: "9px", textTransform: "uppercase", letterSpacing: "0.28em", color: "rgba(255,255,255,0.28)", textDecoration: "none" }}>
+                {item}
+              </Link>
+            ))}
           </div>
-
-          <p style={{ fontSize: "10px", textTransform: "uppercase", letterSpacing: "0.5em", fontStyle: "italic", color: "var(--gold)", margin: 0 }}>
+          <p style={{ fontSize: "9px", fontStyle: "italic", letterSpacing: "0.48em", color: "rgba(201,169,110,0.50)", margin: 0 }}>
             Modern Rituals · Pure Serenity
           </p>
         </div>

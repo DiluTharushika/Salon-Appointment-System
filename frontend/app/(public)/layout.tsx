@@ -5,7 +5,7 @@ import { Footer } from "@/components/layout/Footer";
 export default function PublicLayout({ children }: { children: ReactNode }) {
   return (
     <div
-      className="min-h-screen flex flex-col relative overflow-x-hidden selection:bg-rose-100 selection:text-rose-900"
+      className="min-h-screen flex flex-col relative overflow-x-hidden"
       style={{ 
         background: "var(--cream)", 
         color: "var(--ink)",

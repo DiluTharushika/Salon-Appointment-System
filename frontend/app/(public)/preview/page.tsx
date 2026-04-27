@@ -1,272 +1,233 @@
-import { ServiceCard } from "@/components/services/ServiceCard";
+// frontend/app/(public)/preview/page.tsx
+import Image from "next/image";
 import Link from "next/link";
 import Container from "@/components/Container";
 
-export default function PreviewPage() {
-  const mockServices = [
-    {
-      id: "1",
-      name: "Classic Cut",
-      description:
-        "A timeless haircut tailored to your personal style. Includes a wash, precision cut, and finish.",
-      price: 45,
-      duration: 45,
-    },
-    {
-      id: "2",
-      name: "Deluxe Grooming",
-      description:
-        "Haircut, beard trim, and a relaxing hot towel treatment — the complete artisanal experience.",
-      price: 75,
-      duration: 90,
-    },
-    {
-      id: "3",
-      name: "Radiance Facial",
-      description:
-        "A botanical infusion ritual that brightens, hydrates and restores your natural luminosity.",
-      price: 95,
-      duration: 60,
-    },
-    {
-      id: "4",
-      name: "Nail Atelier",
-      description:
-        "Precision nail sculpting with a curated palette of finishes, sealed with a gel topcoat.",
-      price: 55,
-      duration: 50,
-    },
-  ];
+const galleryItems = [
+  { alt: "Hair Colour & Balayage",   category: "Hair",    span: "col-span-2 row-span-2" },
+  { alt: "Glass Manicure",           category: "Nails",   span: "" },
+  { alt: "Bridal Updo",              category: "Hair",    span: "" },
+  { alt: "Botanical Glow Facial",    category: "Skin",    span: "col-span-2" },
+  { alt: "Scalp Ritual",             category: "Wellness",span: "" },
+  { alt: "Lash & Brow Design",       category: "Beauty",  span: "" },
+  { alt: "Nail Art Studio",          category: "Nails",   span: "" },
+  { alt: "Body Glow Treatment",      category: "Spa",     span: "" },
+];
 
-  const badges = ["Instant Confirmation", "Free Rescheduling", "5★ Rated", "Botanical"];
+const categories = ["All", "Hair", "Skin", "Nails", "Wellness"];
 
+export default function GalleryPage() {
   return (
     <div
-      className="min-h-screen pb-24"
       style={{
-        background:
-          "linear-gradient(160deg, var(--cream) 0%, var(--warm-off) 60%, var(--parchment) 100%)",
+        minHeight: "100vh",
+        background: "linear-gradient(160deg, var(--cream) 0%, var(--warm-off) 60%, var(--parchment) 100%)",
       }}
     >
-      {/* =========================
-          HEADER / HERO (full width)
-      ========================== */}
+      {/* ── HERO ── */}
       <section
-        className="relative overflow-hidden py-14 sm:py-20"
-        style={{
-          background:
-            "linear-gradient(135deg, var(--ink) 0%, var(--ink-soft) 65%, #3a1c26 100%)",
-        }}
+        className="relative overflow-hidden py-20 sm:py-28"
+        style={{ background: "linear-gradient(135deg, var(--ink) 0%, var(--ink-soft) 65%, #3a1c26 100%)" }}
       >
-        {/* blob */}
         <div
-          className="absolute top-0 right-0 w-72 h-72 translate-x-1/2 -translate-y-1/2 rounded-full pointer-events-none"
-          style={{ background: "rgba(201,169,110,0.12)", filter: "blur(64px)" }}
+          className="absolute top-0 right-0 pointer-events-none rounded-full"
+          style={{ width: "28rem", height: "28rem", transform: "translate(50%,-50%)", background: "rgba(201,169,110,0.12)", filter: "blur(72px)" }}
+        />
+        <div
+          className="absolute bottom-0 left-0 pointer-events-none rounded-full"
+          style={{ width: "24rem", height: "24rem", transform: "translate(-50%,50%)", background: "rgba(156,74,94,0.15)", filter: "blur(72px)" }}
         />
 
         <Container className="relative">
-          <div className="animate-fade-up max-w-4xl">
-            <Link
-              href="/"
-              className="inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.35em] font-semibold mb-7 transition-opacity hover:opacity-80"
-              style={{ color: "rgba(255,255,255,0.55)", textDecoration: "none" }}
-            >
-              ← Home
-            </Link>
-
-            <div
-              className="inline-flex items-center gap-3 rounded-full px-4 py-2 mb-6"
-              style={{
-                background: "rgba(201,169,110,0.12)",
-                border: "1px solid rgba(201,169,110,0.28)",
-              }}
-            >
-              <span className="dot-gold" />
-              <span
-                className="text-[10px] uppercase tracking-[0.45em] font-semibold"
-                style={{ color: "var(--gold-light)" }}
-              >
-                Component Gallery
+          <div className="mx-auto max-w-4xl text-center animate-fade-up">
+            <div className="inline-flex items-center gap-4 mb-8">
+              <div className="h-px w-16" style={{ background: "rgba(201,169,110,0.45)" }} />
+              <span className="text-[10px] sm:text-xs uppercase tracking-[0.55em] font-semibold" style={{ color: "var(--gold)" }}>
+                Lookbook
               </span>
+              <div className="h-px w-16" style={{ background: "rgba(201,169,110,0.45)" }} />
             </div>
 
             <h1
-              className="font-serif text-5xl sm:text-6xl md:text-7xl text-white leading-[1.05]"
-              style={{ textShadow: "0 4px 24px rgba(0,0,0,0.3)" }}
+              className="font-serif text-5xl sm:text-6xl md:text-7xl text-white leading-[1.04]"
+              style={{ textShadow: "0 4px 30px rgba(0,0,0,0.35)" }}
             >
-              UI Component <span className="text-shimmer italic">Preview</span>
+              The Gallery of{" "}
+              <span className="italic text-shimmer">Light</span>
             </h1>
 
             <p
-              className="mt-5 text-base sm:text-lg max-w-2xl leading-relaxed"
+              className="mt-8 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed"
               style={{ color: "rgba(255,255,255,0.65)" }}
             >
-              A curated showcase of the interface components used throughout The
-              Atelier experience.
+              A curation of our finest work — soft glamour, luminous skin, and precision
+              details captured at The Atelier.
             </p>
-          </div>
-        </Container>
 
-        {/* bottom fade into cream */}
-        <div className="absolute bottom-0 left-0 right-0 h-12 pointer-events-none">
-          <div
-            className="h-full"
-            style={{
-              background:
-                "linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(247,241,238,0.35) 60%, rgba(247,241,238,1) 100%)",
-            }}
-          />
-        </div>
-      </section>
-
-      {/* =========================
-          CONTENT
-      ========================== */}
-      <Container className="py-14 space-y-16">
-        {/* Service Cards */}
-        <section className="space-y-7">
-          <div>
-            <div className="eyebrow">Components</div>
-            <h2 className="mt-4 font-serif text-3xl sm:text-4xl" style={{ color: "var(--ink)" }}>
-              Service Cards
-            </h2>
-            <div className="divider-gold mt-5" style={{ maxWidth: "90px" }} />
-          </div>
-
-          <div className="grid gap-7 md:grid-cols-2">
-            {mockServices.map((s, i) => (
-              <div key={s.id} className="animate-fade-up" style={{ animationDelay: `${i * 80}ms` }}>
-                <ServiceCard
-                  name={s.name}
-                  description={s.description}
-                  price={s.price}
-                  duration={s.duration}
-                />
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Buttons & Badges */}
-        <section className="space-y-7">
-          <div>
-            <h2 className="font-serif text-3xl sm:text-4xl" style={{ color: "var(--ink)" }}>
-              Buttons &amp; Badges
-            </h2>
-            <div className="divider-gold mt-5" style={{ maxWidth: "90px" }} />
-          </div>
-
-          <div className="glass-card rounded-3xl p-8 sm:p-10 space-y-7">
-            <div className="flex flex-wrap gap-4">
-              <button className="btn-primary">Primary Button</button>
-              <button className="btn-gold">Gold Button</button>
-
-              <div
-                className="flex items-center rounded-3xl px-6 py-5"
-                style={{ background: "var(--ink)" }}
-              >
-                <button className="btn-ghost">Ghost Button</button>
-              </div>
-            </div>
-
-            <div className="flex flex-wrap gap-3">
-              {badges.map((b) => (
-                <span
-                  key={b}
-                  className="inline-flex items-center gap-2 rounded-full px-4 py-2 text-[10px] uppercase tracking-[0.35em] font-semibold"
+            {/* Filter chips */}
+            <div className="mt-10 flex flex-wrap justify-center gap-3">
+              {categories.map((cat) => (
+                <button
+                  key={cat}
+                  className="rounded-full px-5 py-2.5 text-[10px] font-semibold uppercase tracking-[0.35em] transition-all duration-200 hover:-translate-y-0.5 cursor-pointer"
                   style={{
                     border: "1px solid rgba(201,169,110,0.28)",
-                    background: "rgba(201,169,110,0.10)",
-                    color: "var(--ink)",
+                    background: cat === "All" ? "rgba(201,169,110,0.18)" : "rgba(201,169,110,0.07)",
+                    color: cat === "All" ? "rgba(232,213,168,1)" : "rgba(232,213,168,0.75)",
+                    backdropFilter: "blur(10px)",
                   }}
                 >
-                  <span className="dot-gold" />
-                  {b}
-                </span>
+                  {cat}
+                </button>
               ))}
             </div>
           </div>
-        </section>
+        </Container>
 
-        {/* Typography */}
-        <section className="space-y-7">
-          <div>
-            <h2 className="font-serif text-3xl sm:text-4xl" style={{ color: "var(--ink)" }}>
-              Typography &amp; Decorators
-            </h2>
-            <div className="divider-gold mt-5" style={{ maxWidth: "90px" }} />
-          </div>
+        <div className="absolute bottom-0 left-0 right-0 h-12 pointer-events-none">
+          <div className="h-full" style={{ background: "linear-gradient(180deg, transparent 0%, rgba(247,241,238,0.4) 60%, rgba(245,239,233,1) 100%)" }} />
+        </div>
+      </section>
 
-          <div className="glass-card rounded-3xl p-8 sm:p-10 space-y-8">
-            <div className="eyebrow">Eyebrow Label</div>
-
-            <p className="font-serif text-5xl leading-tight" style={{ color: "var(--ink)" }}>
-              Headline Serif Display
-            </p>
-
-            <p className="font-serif text-4xl italic" style={{ color: "var(--rose)" }}>
-              Italic Accent
-            </p>
-
-            <p className="font-serif text-4xl text-shimmer italic">
-              Gold Shimmer Text
-            </p>
-
-            <div className="divider-gold" />
-
-            <p className="text-base leading-relaxed" style={{ color: "var(--muted)" }}>
-              Body copy — elegant, precise, and designed for readability. Each word is intentional.
-            </p>
-          </div>
-        </section>
-
-        {/* CTA preview */}
-        <section>
-          <div className="mb-7">
-            <h2 className="font-serif text-3xl sm:text-4xl" style={{ color: "var(--ink)" }}>
-              CTA Banner
-            </h2>
-            <div className="divider-gold mt-5" style={{ maxWidth: "90px" }} />
-          </div>
-
-          <div
-            className="relative overflow-hidden rounded-3xl px-8 sm:px-14 py-14 text-center"
-            style={{
-              background:
-                "linear-gradient(135deg, var(--ink) 0%, var(--ink-soft) 60%, #3a1c26 100%)",
-              boxShadow: "0 32px 80px -24px rgba(28,20,16,0.55)",
-            }}
-          >
+      {/* ── MASONRY GALLERY ── */}
+      <Container className="py-16 sm:py-24">
+        <div className="grid grid-cols-2 md:grid-cols-4 auto-rows-[200px] gap-4">
+          {galleryItems.map((item, i) => (
             <div
-              className="absolute top-0 left-0 w-72 h-72 -translate-x-1/2 -translate-y-1/2 rounded-full pointer-events-none"
-              style={{ background: "rgba(201,169,110,0.12)", filter: "blur(60px)" }}
-            />
-
-            <div className="relative space-y-5">
-              <div className="divider-gold mx-auto mb-4" style={{ maxWidth: "70px" }} />
-
-              <p
-                className="text-[10px] uppercase tracking-[0.55em] font-semibold"
-                style={{ color: "var(--gold)" }}
-              >
-                Call to Action
-              </p>
-
-              <h3 className="font-serif text-4xl sm:text-5xl text-white leading-tight">
-                Reserve Your <span className="text-shimmer italic">Moment</span>
-              </h3>
-
-              <div className="pt-4 flex flex-wrap justify-center gap-4">
-                <Link href="/booking" className="btn-gold">
-                  Book Now
-                </Link>
-                <Link href="/services" className="btn-ghost">
-                  Services
-                </Link>
+              key={i}
+              className={`relative gallery-item shadow-md overflow-hidden ${item.span}`}
+              style={{ borderRadius: "1.5rem" }}
+            >
+              <Image
+                src="/gallery/hero.jpg"
+                alt={item.alt}
+                fill
+                sizes="(max-width: 768px) 50vw, 25vw"
+                className="object-cover transition-transform duration-700 hover:scale-105"
+                style={{ filter: "brightness(0.88) saturate(1.10)" }}
+              />
+              <div className="gallery-overlay">
+                <div>
+                  <p className="text-[8px] uppercase tracking-[0.45em] font-semibold" style={{ color: "var(--gold)" }}>
+                    {item.category}
+                  </p>
+                  <p className="text-[11px] uppercase tracking-[0.25em] text-white/90 font-medium mt-0.5">
+                    {item.alt}
+                  </p>
+                </div>
               </div>
             </div>
+          ))}
+        </div>
+      </Container>
+
+      {/* ── STATS STRIP ── */}
+      <section style={{ background: "var(--warm-off)", padding: "60px 0", borderTop: "1px solid rgba(201,169,110,0.12)", borderBottom: "1px solid rgba(201,169,110,0.12)" }}>
+        <Container>
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 text-center">
+            {[
+              { n: "2,000+", l: "Transformations" },
+              { n: "4.9★",   l: "Average Rating"  },
+              { n: "100%",   l: "Botanical"        },
+              { n: "12",     l: "Expert Artists"   },
+            ].map((s) => (
+              <div key={s.l}>
+                <div className="font-serif text-3xl sm:text-4xl" style={{ color: "var(--ink)" }}>{s.n}</div>
+                <div className="text-[10px] uppercase tracking-[0.40em] mt-2" style={{ color: "var(--muted)" }}>{s.l}</div>
+              </div>
+            ))}
           </div>
-        </section>
+        </Container>
+      </section>
+
+      {/* ── INSTAGRAM STRIP ── */}
+      <section style={{ padding: "64px 0 0" }}>
+        <Container>
+          <div className="text-center mb-10">
+            <div className="eyebrow justify-center">Follow Along</div>
+            <h2 className="mt-5 font-serif text-2xl sm:text-3xl" style={{ color: "var(--ink)" }}>
+              @auraglass.studio
+            </h2>
+            <p className="mt-3 text-sm" style={{ color: "var(--muted)" }}>
+              Daily inspiration, behind-the-scenes rituals, and client reveals.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-3 sm:grid-cols-6 gap-3">
+            {Array.from({ length: 6 }).map((_, i) => (
+              <div
+                key={i}
+                className="relative rounded-2xl overflow-hidden"
+                style={{ height: "130px" }}
+              >
+                <Image
+                  src="/gallery/hero.jpg"
+                  alt={`Instagram post ${i + 1}`}
+                  fill
+                  sizes="(max-width: 640px) 33vw, 16vw"
+                  className="object-cover"
+                  style={{ filter: "brightness(0.88) saturate(1.08)" }}
+                />
+                <div
+                  className="absolute inset-0 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center cursor-pointer"
+                  style={{ background: "rgba(28,20,16,0.55)" }}
+                >
+                  <span className="text-lg" style={{ color: "var(--gold)" }}>✦</span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="text-center mt-8 pb-8">
+            <a
+              href="https://instagram.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-ghost-ink inline-flex"
+              style={{ textDecoration: "none" }}
+            >
+              Follow on Instagram →
+            </a>
+          </div>
+        </Container>
+      </section>
+
+      {/* ── BOTTOM CTA ── */}
+      <Container className="py-16 sm:py-24">
+        <div
+          className="relative overflow-hidden rounded-3xl px-8 sm:px-16 py-16 text-center"
+          style={{
+            background: "linear-gradient(135deg, var(--ink) 0%, var(--ink-soft) 60%, #3D1E28 100%)",
+            boxShadow: "0 32px 80px -24px rgba(28,20,16,0.55)",
+          }}
+        >
+          <div className="absolute top-0 left-0 w-80 h-80 -translate-x-1/2 -translate-y-1/2 rounded-full pointer-events-none"
+            style={{ background: "rgba(201,169,110,0.12)", filter: "blur(60px)" }} />
+          <div className="absolute bottom-0 right-0 w-80 h-80 translate-x-1/2 translate-y-1/2 rounded-full pointer-events-none"
+            style={{ background: "rgba(156,74,94,0.18)", filter: "blur(60px)" }} />
+
+          <div className="relative space-y-5">
+            <div className="divider-gold mx-auto mb-6" style={{ maxWidth: "80px" }} />
+            <p className="text-[9px] uppercase tracking-[0.55em] font-semibold" style={{ color: "var(--gold)" }}>
+              Ready to Begin?
+            </p>
+            <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl text-white leading-tight">
+              Reserve Your{" "}
+              <span className="text-shimmer italic">Moment</span>
+            </h2>
+            <p className="text-sm max-w-sm mx-auto leading-relaxed" style={{ color: "rgba(255,255,255,0.62)" }}>
+              Let our artisans craft a ritual designed entirely around you.
+            </p>
+            <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
+              <Link href="/booking" className="btn-gold" style={{ textDecoration: "none" }}>
+                ✦ Book an Appointment
+              </Link>
+              <Link href="/services" className="btn-ghost" style={{ textDecoration: "none" }}>
+                Explore Services
+              </Link>
+            </div>
+          </div>
+        </div>
       </Container>
     </div>
   );
