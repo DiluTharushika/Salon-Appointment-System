@@ -1,7 +1,7 @@
 import { BookingForm } from "@/components/booking/BookingForm";
 import Link from "next/link";
 import Container from "@/components/Container";
-
+import SelectedStyleSummary from "@/components/booking/SelectedStyleSummary";
 export default function BookingPage() {
   return (
     <div
@@ -111,7 +111,7 @@ export default function BookingPage() {
           >
             ← Back to Home
           </Link>
-
+          <SelectedStyleSummary />
           <BookingForm />
 
           {/* bottom note */}

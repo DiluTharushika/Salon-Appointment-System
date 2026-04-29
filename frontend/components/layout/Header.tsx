@@ -5,16 +5,17 @@ import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 
 const navLinks = [
-  { href: "/",         label: "Home"     },
-  { href: "/services", label: "Services" },
-  { href: "/about",    label: "About"    },
-  { href: "/booking",  label: "Book"     },
-  { href: "/preview",  label: "Gallery"  },
+  { href: "/",          label: "Home"      },
+  { href: "/services",  label: "Services"  },
+  { href: "/about",     label: "About"     },
+  { href: "/hair-match", label: "Hair Match" }, // ✅ NEW
+  { href: "/booking",   label: "Book"      },
+  { href: "/preview",   label: "Gallery"   },
 ];
 
 export function Header() {
-  const pathname   = usePathname();
-  const [open, setOpen]         = useState(false);
+  const pathname = usePathname();
+  const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -24,7 +25,9 @@ export function Header() {
   }, []);
 
   // Close menu on route change
-  useEffect(() => { setOpen(false); }, [pathname]);
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
 
   const headerBg = scrolled
     ? "rgba(251, 247, 243, 0.97)"
@@ -47,8 +50,11 @@ export function Header() {
           height: "72px",
           display: "flex",
           alignItems: "center",
-          transition: "background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease",
-          boxShadow: scrolled ? "0 4px 32px -8px rgba(32,26,23,0.12)" : "none",
+          transition:
+            "background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease",
+          boxShadow: scrolled
+            ? "0 4px 32px -8px rgba(32,26,23,0.12)"
+            : "none",
         }}
       >
         <div
@@ -65,13 +71,22 @@ export function Header() {
         >
           {/* ── LOGO ── */}
           <Link href="/" style={{ textDecoration: "none", flexShrink: 0 }}>
-            <div style={{ display: "flex", flexDirection: "column", lineHeight: "1.05" }}>
+            <div
+              style={{ display: "flex", flexDirection: "column", lineHeight: "1.05" }}
+            >
               <span
                 className="font-serif"
-                style={{ fontSize: "22px", fontWeight: 700, letterSpacing: "0.04em", color: "var(--ink)" }}
+                style={{
+                  fontSize: "22px",
+                  fontWeight: 700,
+                  letterSpacing: "0.04em",
+                  color: "var(--ink)",
+                }}
               >
                 The{" "}
-                <span style={{ fontStyle: "italic", color: "var(--rose)" }}>Atelier</span>
+                <span style={{ fontStyle: "italic", color: "var(--rose)" }}>
+                  Atelier
+                </span>
               </span>
               <span
                 style={{
@@ -133,7 +148,9 @@ export function Header() {
           </nav>
 
           {/* ── RIGHT: CTA + Hamburger ── */}
-          <div style={{ display: "flex", alignItems: "center", gap: "16px", flexShrink: 0 }}>
+          <div
+            style={{ display: "flex", alignItems: "center", gap: "16px", flexShrink: 0 }}
+          >
             <Link
               href="/booking"
               className="btn-primary hidden-mobile"
@@ -163,24 +180,36 @@ export function Header() {
                 gap: "5px",
               }}
             >
-              <span style={{
-                display: "block", width: "22px", height: "1.5px",
-                background: "var(--ink)",
-                transition: "transform 0.3s ease, opacity 0.3s ease",
-                transform: open ? "translateY(6.5px) rotate(45deg)" : "none",
-              }} />
-              <span style={{
-                display: "block", width: "22px", height: "1.5px",
-                background: "var(--ink)",
-                opacity: open ? 0 : 1,
-                transition: "opacity 0.2s ease",
-              }} />
-              <span style={{
-                display: "block", width: "22px", height: "1.5px",
-                background: "var(--ink)",
-                transition: "transform 0.3s ease",
-                transform: open ? "translateY(-6.5px) rotate(-45deg)" : "none",
-              }} />
+              <span
+                style={{
+                  display: "block",
+                  width: "22px",
+                  height: "1.5px",
+                  background: "var(--ink)",
+                  transition: "transform 0.3s ease, opacity 0.3s ease",
+                  transform: open ? "translateY(6.5px) rotate(45deg)" : "none",
+                }}
+              />
+              <span
+                style={{
+                  display: "block",
+                  width: "22px",
+                  height: "1.5px",
+                  background: "var(--ink)",
+                  opacity: open ? 0 : 1,
+                  transition: "opacity 0.2s ease",
+                }}
+              />
+              <span
+                style={{
+                  display: "block",
+                  width: "22px",
+                  height: "1.5px",
+                  background: "var(--ink)",
+                  transition: "transform 0.3s ease",
+                  transform: open ? "translateY(-6.5px) rotate(-45deg)" : "none",
+                }}
+              />
             </button>
           </div>
         </div>
@@ -252,19 +281,29 @@ export function Header() {
           })}
 
           <div style={{ marginTop: "32px" }}>
-            <Link href="/booking" className="btn-primary" style={{ textDecoration: "none", width: "100%", justifyContent: "center" }}>
+            <Link
+              href="/booking"
+              className="btn-primary"
+              style={{
+                textDecoration: "none",
+                width: "100%",
+                justifyContent: "center",
+              }}
+            >
               Book Appointment
             </Link>
           </div>
 
-          <p style={{
-            marginTop: "auto",
-            fontSize: "9px",
-            textTransform: "uppercase",
-            letterSpacing: "0.4em",
-            color: "var(--gold)",
-            fontStyle: "italic",
-          }}>
+          <p
+            style={{
+              marginTop: "auto",
+              fontSize: "9px",
+              textTransform: "uppercase",
+              letterSpacing: "0.4em",
+              color: "var(--gold)",
+              fontStyle: "italic",
+            }}
+          >
             Aura Glass Studio
           </p>
         </div>
