@@ -12,6 +12,7 @@ type Goal = "volume" | "slim_face" | "low_maintenance" | "formal" | "trend";
 type StyleCard = {
   id: string;
   name: string;
+  image: string; // ✅ NEW
   price: number;
   forShapes: FaceShape[];
   forLengths: HairLength[];
@@ -24,6 +25,7 @@ const STYLES: StyleCard[] = [
   {
     id: "side-part-cut",
     name: "Side Part + Face-Framing Layers",
+    image: "/hairstyles/sample/Side-Part-Layers.jpg",
     price: 3500,
     forShapes: ["round", "square", "heart", "oval"],
     forLengths: ["medium", "long"],
@@ -34,6 +36,7 @@ const STYLES: StyleCard[] = [
   {
     id: "angled-bob",
     name: "Angled Bob",
+    image: "/hairstyles/sample/Angled-Bob.jpg",
     price: 4500,
     forShapes: ["round", "oval", "heart"],
     forLengths: ["short", "medium"],
@@ -44,6 +47,7 @@ const STYLES: StyleCard[] = [
   {
     id: "textured-lob",
     name: "Textured Lob (Long Bob)",
+    image: "/hairstyles/sample/Textured-Lob.jpg",
     price: 4200,
     forShapes: ["oval", "round", "square", "heart"],
     forLengths: ["medium"],
@@ -54,6 +58,7 @@ const STYLES: StyleCard[] = [
   {
     id: "curtain-bangs",
     name: "Curtain Bangs + Layers",
+    image: "/hairstyles/sample/Curtain-Bangs.jpg",
     price: 3000,
     forShapes: ["oval", "heart", "oblong"],
     forLengths: ["medium", "long"],
@@ -62,8 +67,20 @@ const STYLES: StyleCard[] = [
     notes: "Softens forehead area and frames cheekbones.",
   },
   {
+    id: "long-layers",
+    name: "Long Layers",
+    image: "/hairstyles/sample/Long-Layers.jpg",
+    price: 3800,
+    forShapes: ["oval", "round", "square", "heart", "oblong"],
+    forLengths: ["long"],
+    forTypes: ["straight", "wavy", "curly", "coily"],
+    goals: ["low_maintenance", "trend", "volume"],
+    notes: "Classic layering for movement and softness.",
+  },
+  {
     id: "soft-waves",
     name: "Soft Waves + Long Layers",
+    image: "/hairstyles/sample/Soft-Waves.jpg",
     price: 5000,
     forShapes: ["square", "heart", "oval", "round"],
     forLengths: ["medium", "long"],
@@ -122,7 +139,7 @@ function currencyLKR(x: number) {
 
 export default function HairMatchClient() {
   const imgRef = useRef<HTMLImageElement | null>(null);
-  const canvasRef = useRef<HTMLCanvasElement | null>(null); // ✅ NEW
+  const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const [imageUrl, setImageUrl] = useState<string | null>(null);
@@ -154,6 +171,7 @@ export default function HairMatchClient() {
         setModelError(null);
         setMessage("Loading face model…");
 
+        // If this causes issues, change to: FilesetResolver.forVisionTasks("/mediapipe-wasm")
         const fileset = await FilesetResolver.forVisionTasks(
           "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@latest/wasm"
         );
@@ -221,7 +239,6 @@ export default function HairMatchClient() {
       setDetecting(true);
       setMessage("Analyzing face…");
 
-      // ✅ Draw the image to canvas (more stable than passing <img>)
       const img = imgRef.current;
       const canvas = canvasRef.current;
       if (!canvas) throw new Error("Canvas not available");
@@ -238,7 +255,6 @@ export default function HairMatchClient() {
 
       ctx.drawImage(img, 0, 0, w, h);
 
-      // ✅ Detect on canvas
       const res = landmarker.detect(canvas);
       const faces = res.faceLandmarks;
 
@@ -360,7 +376,6 @@ export default function HairMatchClient() {
           Best: front-facing, good lighting, no heavy filters.
         </p>
 
-        {/* Hidden file input */}
         <input
           ref={fileInputRef}
           type="file"
@@ -417,7 +432,6 @@ export default function HairMatchClient() {
           </div>
         )}
 
-        {/* ✅ Hidden canvas used for detection */}
         <canvas ref={canvasRef} style={{ display: "none" }} />
       </section>
 
@@ -438,8 +452,7 @@ export default function HairMatchClient() {
           </p>
         ) : filteredStyles.length === 0 ? (
           <p className="mt-6 opacity-70">
-            No matching styles under your budget. Try increasing budget or change
-            goal/type.
+            No matching styles under your budget. Try increasing budget or change goal/type.
           </p>
         ) : (
           <div className="mt-6 grid gap-4">
@@ -454,6 +467,14 @@ export default function HairMatchClient() {
 
               return (
                 <div key={s.id} className="rounded-xl border p-4">
+                  {/* ✅ Image */}
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={s.image}
+                    alt={s.name}
+                    className="mb-3 h-44 w-full rounded-xl object-cover bg-black/5"
+                  />
+
                   <div className="flex items-start justify-between gap-4">
                     <div>
                       <div className="text-lg font-semibold">{s.name}</div>
