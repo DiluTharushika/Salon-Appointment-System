@@ -30,45 +30,44 @@ export function Header() {
   }, [pathname]);
 
   const headerBg = scrolled
-    ? "rgba(251, 247, 243, 0.97)"
-    : "rgba(251, 247, 243, 0.82)";
+    ? "rgba(251, 247, 243, 0.85)"
+    : "rgba(251, 247, 243, 0.55)";
 
   return (
     <>
-      <header
-        style={{
-          position: "sticky",
-          top: 0,
-          zIndex: 1000,
-          width: "100%",
-          background: headerBg,
-          backdropFilter: "blur(18px)",
-          WebkitBackdropFilter: "blur(18px)",
-          borderBottom: scrolled
-            ? "1px solid rgba(201,169,110,0.22)"
-            : "1px solid rgba(201,169,110,0.10)",
-          height: "72px",
-          display: "flex",
-          alignItems: "center",
-          transition:
-            "background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease",
-          boxShadow: scrolled
-            ? "0 4px 32px -8px rgba(32,26,23,0.12)"
-            : "none",
-        }}
-      >
-        <div
+      <div style={{ position: "sticky", top: "16px", zIndex: 1000, padding: "0 16px", width: "100%" }}>
+        <header
           style={{
             maxWidth: "1280px",
             margin: "0 auto",
             width: "100%",
-            padding: "0 40px",
+            background: headerBg,
+            backdropFilter: "blur(24px)",
+            WebkitBackdropFilter: "blur(24px)",
+            border: scrolled
+              ? "1px solid rgba(201,169,110,0.3)"
+              : "1px solid rgba(201,169,110,0.15)",
+            borderRadius: "9999px",
+            height: "72px",
             display: "flex",
-            justifyContent: "space-between",
             alignItems: "center",
-            gap: "24px",
+            transition:
+              "background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease",
+            boxShadow: scrolled
+              ? "0 12px 40px -12px rgba(32,26,23,0.2)"
+              : "0 8px 32px -12px rgba(32,26,23,0.08)",
           }}
         >
+          <div
+            style={{
+              width: "100%",
+              padding: "0 32px",
+              display: "flex",
+              justifyContent: "space-between",
+              alignItems: "center",
+              gap: "24px",
+            }}
+          >
           {/* ── LOGO ── */}
           <Link href="/" style={{ textDecoration: "none", flexShrink: 0 }}>
             <div
@@ -124,24 +123,16 @@ export function Header() {
                     textTransform: "uppercase",
                     letterSpacing: "0.28em",
                     textDecoration: "none",
-                    color: active ? "var(--rose)" : "var(--muted)",
-                    position: "relative",
-                    padding: "6px 0",
-                    transition: "color 0.25s ease",
+                    color: active ? "var(--rose)" : "var(--ink)",
+                    background: active ? "rgba(251, 247, 243, 0.6)" : "transparent",
+                    border: active ? "1px solid rgba(201, 169, 110, 0.3)" : "1px solid transparent",
+                    boxShadow: active ? "0 4px 12px rgba(32, 26, 23, 0.05)" : "none",
+                    borderRadius: "9999px",
+                    padding: "8px 16px",
+                    transition: "all 0.3s ease",
                   }}
                 >
                   {link.label}
-                  <span
-                    style={{
-                      position: "absolute",
-                      bottom: "-1px",
-                      left: 0,
-                      height: "1px",
-                      width: active ? "100%" : "0%",
-                      backgroundColor: "var(--gold)",
-                      transition: "width 0.35s ease",
-                    }}
-                  />
                 </Link>
               );
             })}
@@ -212,8 +203,9 @@ export function Header() {
               />
             </button>
           </div>
-        </div>
-      </header>
+          </div>
+        </header>
+      </div>
 
       {/* ── MOBILE DRAWER ── */}
       <div
