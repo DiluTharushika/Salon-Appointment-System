@@ -43,22 +43,6 @@ Users can:
 - Store customer information
 - Track appointments
 - Manage customer records
-
-### 🛠️ Service Management
-- Add salon services
-- Update pricing
-- Organize categories
-
-### 🔐 Authentication System
-- Secure login and signup
-- Protected routes
-- Session handling
-
-### 📊 Admin Dashboard
-- Manage salon operations
-- Monitor bookings and services
-- Control application content
-
 ---
 
 # 🧱 Tech Stack
