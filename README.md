@@ -125,7 +125,7 @@ screenshots/          # Project screenshots
 # 📸 Screenshots
 ## 🏠 Home Screen
 
-<img src="./screenshots/Home.png" width="900"/>
+<img src="./screenshots/home.png" width="900"/>
 
 ---
 ## 🤖 AI Hairstyle Upload Screen
