@@ -171,9 +171,8 @@ export default function HairMatchClient() {
         setModelError(null);
         setMessage("Loading face model…");
 
-        // If this causes issues, change to: FilesetResolver.forVisionTasks("/mediapipe-wasm")
         const fileset = await FilesetResolver.forVisionTasks(
-          "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@latest/wasm"
+          "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.2/wasm"
         );
 
         const fm = await FaceLandmarker.createFromOptions(fileset, {
@@ -182,22 +181,22 @@ export default function HairMatchClient() {
           numFaces: 1,
         });
 
-        if (!cancelled) {
-          setLandmarker(fm);
-          setMessage("Model ready. Upload a selfie.");
+          if (!cancelled) {
+            setLandmarker(fm);
+            setMessage("AI ready. Please upload your selfie.");
+          }
+        } catch (e) {
+          console.error("[HairMatch] Model load error:", e);
+          if (!cancelled) {
+            setModelError(
+              "Face analysis system unavailable. Please check your connection."
+            );
+            setMessage("System load failed.");
+          }
+        } finally {
+          if (!cancelled) setLoadingModel(false);
         }
-      } catch (e) {
-        console.error("[HairMatch] Model load error:", e);
-        if (!cancelled) {
-          setModelError(
-            "Failed to load model/WASM. If CDN blocked, we must host WASM locally."
-          );
-          setMessage("Model load failed.");
-        }
-      } finally {
-        if (!cancelled) setLoadingModel(false);
       }
-    }
 
     load();
     return () => {
@@ -303,19 +302,19 @@ export default function HairMatchClient() {
   }, [analyzed, faceShape, hairLength, hairType, goal, maxBudget]);
 
   return (
-    <div className="grid gap-8 md:grid-cols-2">
+    <div className="grid gap-8 md:grid-cols-2 relative">
       {/* LEFT */}
-      <section className="rounded-2xl border p-5">
-        <h2 className="text-xl font-semibold">1) Quick questions</h2>
-        <p className="mt-1 text-sm opacity-80">
+      <section className="glass-card rounded-3xl p-6 sm:p-8 lg:p-10 border border-[rgba(201,169,110,0.15)] shadow-sm relative overflow-hidden">
+        <h2 className="font-serif text-3xl" style={{ color: "var(--ink)" }}>1) Quick questions</h2>
+        <p className="mt-2 text-sm opacity-80 mb-6">
           Answer these first so recommendations match your needs.
         </p>
 
-        <div className="mt-4 grid gap-4">
-          <label className="text-sm">
-            <div className="mb-1 opacity-80">Current length</div>
+        <div className="grid gap-5">
+          <label className="text-sm block">
+            <div className="mb-2 font-medium opacity-80 uppercase tracking-widest text-[10px]">Current length</div>
             <select
-              className="w-full rounded-lg border px-3 py-2 bg-transparent"
+              className="w-full rounded-xl border border-[rgba(32,26,23,0.15)] px-4 py-3 bg-transparent focus:outline-none focus:ring-1 focus:ring-[var(--gold)] transition-all"
               value={hairLength}
               onChange={(e) => setHairLength(e.target.value as HairLength)}
             >
@@ -325,10 +324,10 @@ export default function HairMatchClient() {
             </select>
           </label>
 
-          <label className="text-sm">
-            <div className="mb-1 opacity-80">Hair type</div>
+          <label className="text-sm block">
+            <div className="mb-2 font-medium opacity-80 uppercase tracking-widest text-[10px]">Hair type</div>
             <select
-              className="w-full rounded-lg border px-3 py-2 bg-transparent"
+              className="w-full rounded-xl border border-[rgba(32,26,23,0.15)] px-4 py-3 bg-transparent focus:outline-none focus:ring-1 focus:ring-[var(--gold)] transition-all"
               value={hairType}
               onChange={(e) => setHairType(e.target.value as HairType)}
             >
@@ -339,10 +338,10 @@ export default function HairMatchClient() {
             </select>
           </label>
 
-          <label className="text-sm">
-            <div className="mb-1 opacity-80">Goal</div>
+          <label className="text-sm block">
+            <div className="mb-2 font-medium opacity-80 uppercase tracking-widest text-[10px]">Goal</div>
             <select
-              className="w-full rounded-lg border px-3 py-2 bg-transparent"
+              className="w-full rounded-xl border border-[rgba(32,26,23,0.15)] px-4 py-3 bg-transparent focus:outline-none focus:ring-1 focus:ring-[var(--gold)] transition-all"
               value={goal}
               onChange={(e) => setGoal(e.target.value as Goal)}
             >
@@ -354,10 +353,10 @@ export default function HairMatchClient() {
             </select>
           </label>
 
-          <label className="text-sm">
-            <div className="mb-1 opacity-80">Max budget (LKR)</div>
+          <label className="text-sm block">
+            <div className="mb-2 font-medium opacity-80 uppercase tracking-widest text-[10px]">Max budget (LKR)</div>
             <input
-              className="w-full"
+              className="w-full accent-[var(--gold)] cursor-pointer"
               type="range"
               min={2000}
               max={12000}
@@ -365,14 +364,14 @@ export default function HairMatchClient() {
               value={maxBudget}
               onChange={(e) => setMaxBudget(Number(e.target.value))}
             />
-            <div className="mt-1 opacity-80">{currencyLKR(maxBudget)}</div>
+            <div className="mt-2 font-semibold" style={{ color: "var(--ink)" }}>{currencyLKR(maxBudget)}</div>
           </label>
         </div>
 
-        <hr className="my-6 opacity-30" />
+        <div className="divider-gold my-8" style={{ maxWidth: "100%" }} />
 
-        <h2 className="text-xl font-semibold">2) Upload selfie</h2>
-        <p className="mt-1 text-sm opacity-80">
+        <h2 className="font-serif text-3xl" style={{ color: "var(--ink)" }}>2) Upload selfie</h2>
+        <p className="mt-2 text-sm opacity-80 mb-6">
           Best: front-facing, good lighting, no heavy filters.
         </p>
 
@@ -384,12 +383,12 @@ export default function HairMatchClient() {
           style={{ display: "none" }}
         />
 
-        <div className="mt-4 flex items-center gap-12 flex-wrap">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 flex-wrap">
           <button
             type="button"
             onClick={onPickFileClick}
-            className="btn-primary"
-            style={{ padding: "10px 16px", textDecoration: "none" }}
+            className="btn-ghost-ink"
+            style={{ padding: "10px 24px" }}
           >
             Upload Photo
           </button>
@@ -397,29 +396,29 @@ export default function HairMatchClient() {
           <button
             onClick={runDetection}
             disabled={analyzeDisabled}
-            className="btn-primary"
+            className="btn-gold"
             style={{
-              padding: "10px 18px",
+              padding: "10px 24px",
               opacity: analyzeDisabled ? 0.6 : 1,
               cursor: analyzeDisabled ? "not-allowed" : "pointer",
             }}
           >
             {detecting ? "Analyzing..." : "Analyze"}
           </button>
-
-          <div className="text-sm opacity-80">
-            {loadingModel ? "Loading model…" : modelError ? modelError : message}
-          </div>
+        </div>
+        
+        <div className="mt-4 text-[13px] italic" style={{ color: "var(--muted)" }}>
+          {loadingModel ? "Loading AI model…" : modelError ? modelError : message}
         </div>
 
         {imageUrl && (
-          <div className="mt-5">
+          <div className="mt-6 rounded-2xl overflow-hidden border border-[rgba(32,26,23,0.1)] p-2" style={{ background: "rgba(255,255,255,0.4)" }}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               ref={imgRef}
               src={imageUrl}
               alt="Uploaded selfie preview"
-              className="max-h-[420px] w-full rounded-xl object-contain bg-black/5"
+              className="max-h-[380px] w-full rounded-xl object-contain bg-[rgba(32,26,23,0.03)]"
               onLoad={() => {
                 setImgReady(true);
                 setMessage("Ready. Click Analyze.");
@@ -432,30 +431,42 @@ export default function HairMatchClient() {
           </div>
         )}
 
+        {detecting && (
+          <div className="absolute inset-0 bg-white/60 backdrop-blur-sm z-50 flex flex-col items-center justify-center rounded-3xl animate-fade-in">
+            <div className="w-12 h-12 border-4 border-[var(--gold)] border-t-transparent rounded-full animate-spin mb-4" />
+            <div className="text-[10px] uppercase tracking-[0.4em] font-bold text-[var(--ink)]">Analyzing Features</div>
+          </div>
+        )}
+
         <canvas ref={canvasRef} style={{ display: "none" }} />
       </section>
 
       {/* RIGHT */}
-      <section className="rounded-2xl border p-5">
-        <h2 className="text-xl font-semibold">3) Recommendations</h2>
+      <section className="glass-card rounded-3xl p-6 sm:p-8 lg:p-10 border border-[rgba(201,169,110,0.15)] shadow-sm flex flex-col">
+        <h2 className="font-serif text-3xl" style={{ color: "var(--ink)" }}>3) Recommendations</h2>
 
-        <div className="mt-4">
-          <div className="text-sm opacity-80">Detected face shape</div>
-          <div className="mt-1 text-2xl font-semibold">
+        <div className="mt-6 p-5 rounded-2xl border border-[rgba(201,169,110,0.2)] bg-[rgba(201,169,110,0.05)]">
+          <div className="text-[10px] uppercase tracking-widest font-semibold opacity-70">Detected face shape</div>
+          <div className="mt-1 text-2xl font-serif" style={{ color: "var(--ink)" }}>
             {faceShape === "unknown" ? "—" : faceShape.toUpperCase()}
           </div>
         </div>
 
         {!analyzed ? (
-          <p className="mt-6 opacity-70">
-            Upload a photo and click Analyze to see styles and prices.
-          </p>
+          <div className="mt-10 text-center flex-1 flex flex-col items-center justify-center opacity-60">
+            <div className="text-4xl mb-4">✨</div>
+            <p className="max-w-[250px] mx-auto text-sm leading-relaxed">
+              Upload a photo and click Analyze to discover tailored styles and pricing.
+            </p>
+          </div>
         ) : filteredStyles.length === 0 ? (
-          <p className="mt-6 opacity-70">
-            No matching styles under your budget. Try increasing budget or change goal/type.
-          </p>
+          <div className="mt-10 text-center flex-1 flex flex-col items-center justify-center opacity-60">
+            <p className="max-w-[300px] mx-auto text-sm leading-relaxed">
+              No matching styles under your budget. Try increasing your budget or changing preferences.
+            </p>
+          </div>
         ) : (
-          <div className="mt-6 grid gap-4">
+          <div className="mt-8 grid gap-6">
             {filteredStyles.map((s) => {
               const bookHref =
                 `/booking?style=${encodeURIComponent(s.name)}` +
@@ -466,45 +477,41 @@ export default function HairMatchClient() {
                 `&goal=${encodeURIComponent(goal)}`;
 
               return (
-                <div key={s.id} className="rounded-xl border p-4">
-                  {/* ✅ Image */}
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
-                    src={s.image}
-                    alt={s.name}
-                    className="mb-3 h-44 w-full rounded-xl object-cover bg-black/5"
-                  />
+                <div key={s.id} className="group rounded-2xl border border-[rgba(32,26,23,0.1)] p-4 bg-white hover:shadow-md transition-all duration-300">
+                  {/* ✅ Image Fix - full visibility */}
+                  <div className="mb-4 overflow-hidden rounded-xl bg-[rgba(32,26,23,0.03)] flex items-center justify-center">
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={s.image}
+                      alt={s.name}
+                      className="w-full object-contain transition-transform duration-700 group-hover:scale-[1.02]"
+                      style={{ maxHeight: "320px", display: "block" }}
+                    />
+                  </div>
 
                   <div className="flex items-start justify-between gap-4">
                     <div>
-                      <div className="text-lg font-semibold">{s.name}</div>
-                      <div className="mt-1 text-sm opacity-80">{s.notes}</div>
+                      <div className="text-lg font-serif" style={{ color: "var(--ink)" }}>{s.name}</div>
+                      <div className="mt-1.5 text-[13px] leading-relaxed opacity-70">{s.notes}</div>
                     </div>
-                    <div className="text-sm font-semibold whitespace-nowrap">
+                    <div className="text-sm font-semibold whitespace-nowrap px-3 py-1 rounded-full bg-[rgba(201,169,110,0.1)] text-[var(--ink)]">
                       {currencyLKR(s.price)}
                     </div>
                   </div>
 
-                  <div className="mt-4 flex gap-10 flex-wrap">
+                  <div className="mt-5 flex items-center justify-between flex-wrap gap-4 pt-4 border-t border-[rgba(32,26,23,0.05)]">
                     <Link
                       href={bookHref}
-                      className="btn-primary"
-                      style={{
-                        padding: "9px 14px",
-                        textDecoration: "none",
-                        display: "inline-flex",
-                        alignItems: "center",
-                      }}
+                      className="text-[11px] uppercase tracking-widest font-semibold text-[var(--gold)] hover:text-[var(--rose)] transition-colors inline-flex items-center gap-2"
                     >
-                      Book this style
+                      Book this style <span aria-hidden="true">&rarr;</span>
                     </Link>
 
                     <Link
                       href="/services"
-                      style={{ textDecoration: "none" }}
-                      className="text-sm underline opacity-80"
+                      className="text-[11px] uppercase tracking-widest opacity-50 hover:opacity-100 transition-opacity"
                     >
-                      See related services
+                      View services
                     </Link>
                   </div>
                 </div>
@@ -513,9 +520,11 @@ export default function HairMatchClient() {
           </div>
         )}
 
-        <div className="mt-6 text-sm opacity-70">
-          Tip: booking link can auto-fill style name + price (query params).
-        </div>
+        {analyzed && filteredStyles.length > 0 && (
+          <div className="mt-8 text-center text-[11px] uppercase tracking-widest opacity-40">
+            Select a style to continue booking
+          </div>
+        )}
       </section>
     </div>
   );
