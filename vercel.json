@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "experimental": {
+    "services": {
+      "frontend": {
+        "path": "frontend",
+        "framework": "nextjs"
+      },
+      "backend": {
+        "path": "backend",
+        "runtime": "python3.11",
+        "launcherType": "v2"
+      }
+    }
+  }
+}
